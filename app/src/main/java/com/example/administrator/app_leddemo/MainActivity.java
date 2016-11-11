@@ -21,19 +21,21 @@ public class MainActivity extends AppCompatActivity {
     class MybuttonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-
-            HardControl hardControl = new HardControl();
-
+            int i;
             ledon = !ledon;
             if(ledon) {
                 button.setText("ALL OFF");
                 checkBoxLed1.setChecked(true);
                 checkBoxLed2.setChecked(true);
+                for(i=0;i<2;i++)
+                    HardControl.ledCtrl(i,1);
             }
             else {
                 button.setText("ALL ON");
                 checkBoxLed1.setChecked(false);
                 checkBoxLed2.setChecked(false);
+                for(i=0;i<2;i++)
+                    HardControl.ledCtrl(i,0);
             }
         }
     }
@@ -48,20 +50,24 @@ public class MainActivity extends AppCompatActivity {
                 if (checked) {
                     // Put some meat on the sandwich
                     Toast.makeText(getApplicationContext(),"LED1 on",Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(0, 0);
                 }
                 else {
                     // Remove the meat
                     Toast.makeText(getApplicationContext(),"LED1 off",Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(0, 0);
                 }
                 break;
             case R.id.LED2:
                 if (checked) {
                     // Put some meat on the sandwich
                     Toast.makeText(getApplicationContext(),"LED2 on",Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(1, 1);
                 }
                 else {
                     // Remove the meat
                     Toast.makeText(getApplicationContext(),"LED2 off",Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(1, 0);
                 }
                 break;
             // TODO: Veggie sandwich
@@ -74,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button = (Button) findViewById(R.id.BUTTON);
+
+        HardControl.ledOpen();
 
         checkBoxLed1 = (CheckBox) findViewById(R.id.LED1);
         checkBoxLed2 = (CheckBox) findViewById(R.id.LED2);
